@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lifeifeiaa.dao.SingerDao">
+
+    <sql id="Base_Column_List">
+        id,name,sex,pic,birth,location,introduction
+    </sql>
+
+    <insert id="insert" parameterType="com.lifeifeiaa.domain.Singer">
+        insert into singer
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="pic != null">
+                pic,
+            </if>
+            <if test="birth != null">
+                birth,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+        </trim>
+        <trim prefix=" values(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="pic != null">
+                #{pic},
+            </if>
+            <if test="birth != null">
+                #{birth},
+            </if>
+            <if test="location != null">
+                #{location},
+            </if>
+            <if test="introduction != null">
+                #{introduction},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="com.lifeifeiaa.domain.Singer">
+        update singer
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="pic != null">
+                pic = #{pic},
+            </if>
+            <if test="birth != null">
+                birth = #{birth},
+            </if>
+            <if test="location != null">
+                location = #{location},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from singer
+        where id = #{id}
+    </delete>
+
+    <select id="selectByPrimaryKey" resultType="com.lifeifeiaa.domain.Singer" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from singer
+        where id = #{id}
+    </select>
+
+    <select id="allSinger" resultType="com.lifeifeiaa.domain.Singer">
+        select
+        <include refid="Base_Column_List"/>
+        from singer
+    </select>
+
+    <select id="singerByName" resultType="com.lifeifeiaa.domain.Singer" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from singer
+        where name like  #{name}
+    </select>
+
+    <select id="singerBySex" resultType="com.lifeifeiaa.domain.Singer" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from singer
+        where sex = #{sex}
+    </select>
+</mapper>
